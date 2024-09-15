@@ -1,0 +1,29 @@
+.input {
+  margin-top: -1.6875rem;
+
+
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+
+}
+
+.input input {
+  width: 638px;
+  height: 3.375rem;
+
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+
+  background-color: var(--gray-500);
+  color: var(--gray-300);
+}
+
+.input button {
+  padding: 1rem;
+  height: 3.375rem;
+  background-color: var(--blue-dark);
+  color: var(--gray-100);
+  border-radius: 8px;
+}
