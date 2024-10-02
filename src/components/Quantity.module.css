@@ -1,0 +1,33 @@
+.quantity {
+    width: 46rem;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.quantity .column {
+    display: flex;
+    margin-top: 4.0625rem;
+}
+
+.quantity .column .created {
+    color: var(--blue);
+    font-weight: 700;
+    font-size: .875rem;
+}
+
+.quantity .column .completed {
+    color: var(--purple);
+    font-weight: 700;
+    font-size: .875rem;
+}
+
+.quantity .result {
+    margin-left: 0.5rem;
+    color: var(--gray-200);
+    padding: .125rem 12px;
+    font-weight: 700;
+    background-color: var(--gray-400);
+    border-radius: 16px;
+    font-size: .75rem;
+}

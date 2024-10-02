@@ -1,11 +1,18 @@
+.tasks {
+  margin-top: 24px;
+}
+
 .input {
   margin-top: -1.6875rem;
 
-
-  display: flex;
   gap: 0.5rem;
   justify-content: center;
+}
 
+.input form {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
 }
 
 .input input {
@@ -13,6 +20,7 @@
   height: 3.375rem;
 
   border-radius: 8px;
+  border: solid 1px var(--gray-700);
   padding: 1rem;
   font-size: 1rem;
 
@@ -21,9 +29,15 @@
 }
 
 .input button {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+
   padding: 1rem;
   height: 3.375rem;
   background-color: var(--blue-dark);
   color: var(--gray-100);
   border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 400;
 }
