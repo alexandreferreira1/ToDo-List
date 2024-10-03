@@ -1,37 +1,56 @@
 .task {
-    width: 46rem;
+  width: 46rem;
 
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    background-color: var(--gray-500);
-    border: 1px solid var(--gray-400);
-    border-radius: .5rem;
+  background-color: var(--gray-500);
+  border: 1px solid var(--gray-400);
+  border-radius: 0.5rem;
 
-    padding: 16px;
-    margin: 12px auto;
+  padding: 16px;
+  margin: 12px auto;
 }
 
-.task p {
-    margin-left: 1rem;
-    margin-right: 2rem;
+.p {
+  margin-left: 1rem;
+  margin-right: 2rem;
 
-    width: 39.5rem;
-    line-height: 140%;
-    font-weight: 300;
-    font-size: .875rem;
+  width: 39.5rem;
+  line-height: 140%;
+  font-weight: 300;
+  font-size: 0.875rem;
 }
 
-.task .circle {
-    background: none;
-    color: var(--blue);
-    height: 18px;
-    margin-top: 2px;
+.button {
+  background: none;
+  color: var(--blue);
+  height: 18px;
+  margin-top: 2px;
 }
 
-.task .trash {
-    background: none;
-    color: var(--gray-300);
-    height: 16px;
-    margin-top: 2px;
+.trash {
+  background: none;
+  color: var(--gray-300);
+  height: 16px;
+  margin-top: 2px;
+}
+
+.taskChecked {
+  width: 46rem;
+
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--gray-500);
+  border: 1px solid var(--gray-500);
+  border-radius: 0.5rem;
+
+  padding: 16px;
+  margin: 12px auto;
+}
+
+.taskChecked .p {
+    text-decoration: line-through;
+    color: var(--gray-300)
 }
