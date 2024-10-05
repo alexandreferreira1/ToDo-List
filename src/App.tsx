@@ -7,13 +7,20 @@ import { PlusCircle } from "@phosphor-icons/react";
 import { NoTask } from "./components/NoTask";
 
 export function App() {
+  // Estado que armazena as tarefas
   const [tasks, setTasks] = useState([]);
-  // const [done, setDone] = useState([''])
 
+  const [tasksDone, setTasksDone] = useState([])
+
+  // Valida e insere um nova tarefa
   function handleNewTask(event) {
     event.preventDefault();
 
-    if (event.target.taskName.value !== "") {
+    const findDuplicateTask = tasks.some(task => task.title === event.target.taskName.value)
+
+    if (findDuplicateTask === true) {
+      window.alert("Já existe uma tarefa com esse nome");
+    } else if (event.target.taskName.value !== "") {
       const createNewTask = {
         title: event.target.taskName.value,
         isChecked: true,
@@ -23,20 +30,24 @@ export function App() {
 
       event.target.taskName.value = "";
     } else {
-      window.alert("Digite a tarefa a ser realizada!");
+      window.alert("Digite a tarefa a ser realizada");
     }
+
+
   }
 
-  function deleteTask(task) {
-    console.log(`Deletar tarefa ${task}`);
+  // Evento do botão deletar tarefa
+  function deleteTask(title) {
+    console.log(`Deletar tarefa ${title}`);
 
     const newArrayWithoutThisTask = tasks.filter(
-      (tasksFiltered) => tasksFiltered !== task
+      task => (task.title !== title)
     );
 
     setTasks(newArrayWithoutThisTask);
   }
 
+  // Evento para marcar tarefa como concluída
   function markTaskAsDone(title) {
     console.log(`Marcar tarefa ${title} como feita`);
 
@@ -48,8 +59,15 @@ export function App() {
       return task;
     });
 
-    setTasks(tasksUpdated);
+    // Atualiza o estado das tarefas e já ordena pelo isChecked
+    setTasks(tasksUpdated.sort((task1, task2) => {return task2.isChecked - task1.isChecked}));
+
+    // Atualiza o estado de tarefas concluídas
+    setTasksDone(tasksUpdated.filter(task => task.isChecked === false))
+
+
   }
+
 
   return (
     <>
@@ -71,9 +89,9 @@ export function App() {
       </div>
 
       {/* Quantidade de tarefas criadas e concluídas */}
-      <Quantity created={tasks.length} />
+      <Quantity created={tasks.length} isDone={tasksDone.length} />
 
-      {/* Se o Estado de tarefas for 0, então vai renderizar o ícone */}
+      {/* Se o Estado de tarefas for 0, então vai renderizar o componente NoTask, se não renderiza lista de tarefas */}
       {tasks.length === 0 ? (
         <NoTask />
       ) : (
@@ -81,7 +99,7 @@ export function App() {
           {tasks.map((task) => {
             return (
               <Task
-                key={task}
+                key={task.title}
                 title={task.title}
                 isChecked={task.isChecked}
                 onDeleteTask={deleteTask}
