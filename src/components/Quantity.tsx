@@ -1,9 +1,11 @@
 import styles from './Quantity.module.css'
 
-export function Quantity(props) {
+interface Quantity {
+    created: number,
+    isDone: number
+}
 
-
-
+export function Quantity(props: Quantity) {
     return (
         <div className={styles.quantity}>
             <div className={styles.column}>

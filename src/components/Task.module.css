@@ -27,6 +27,11 @@
   color: var(--blue);
   height: 18px;
   margin-top: 2px;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: var(--blue-dark);
 }
 
 .trash {

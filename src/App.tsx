@@ -2,53 +2,62 @@ import { Header } from "./components/Header";
 import { Task } from "./components/Task";
 import { Quantity } from "./components/Quantity";
 import styles from "./App.module.css";
-import { useState } from "react";
+import {FormEvent, useState } from "react";
 import { PlusCircle } from "@phosphor-icons/react";
 import { NoTask } from "./components/NoTask";
 
+interface Task {
+  title: string,
+  isChecked: boolean
+}
+
+
 export function App() {
   // Estado que armazena as tarefas
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  const [tasksDone, setTasksDone] = useState([])
+  // const [inputValue, setInputValue] = useState('')
+
+  const [tasksDone, setTasksDone] = useState<Task[]>([])
 
   // Valida e insere um nova tarefa
-  function handleNewTask(event) {
+  function handleNewTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    
+    const form = event.target as HTMLFormElement
+    const inputTaskName = form.elements.namedItem('taskName') as HTMLInputElement
 
-    const findDuplicateTask = tasks.some(task => task.title === event.target.taskName.value)
+    const findDuplicateTask = tasks.some(task => task.title === inputTaskName.value)
 
     if (findDuplicateTask === true) {
       window.alert("Já existe uma tarefa com esse nome");
-    } else if (event.target.taskName.value !== "") {
+    } else if (inputTaskName.value !== "") {
       const createNewTask = {
-        title: event.target.taskName.value,
+        title: inputTaskName.value,
         isChecked: true,
-      };
+      }; 
 
       setTasks([...tasks, createNewTask]);
 
-      event.target.taskName.value = "";
+      inputTaskName.value = "";
     } else {
       window.alert("Digite a tarefa a ser realizada");
     }
-
-
   }
 
   // Evento do botão deletar tarefa
-  function deleteTask(title) {
+  function deleteTask(title: string) {
     console.log(`Deletar tarefa ${title}`);
 
     const newArrayWithoutThisTask = tasks.filter(
-      task => (task.title !== title)
+      (task) => (task.title !== title)
     );
 
     setTasks(newArrayWithoutThisTask);
   }
 
   // Evento para marcar tarefa como concluída
-  function markTaskAsDone(title) {
+  function markTaskAsDone(title: string) {
     console.log(`Marcar tarefa ${title} como feita`);
 
     const tasksUpdated = tasks.map((task) => {
@@ -60,10 +69,10 @@ export function App() {
     });
 
     // Atualiza o estado das tarefas e já ordena pelo isChecked
-    setTasks(tasksUpdated.sort((task1, task2) => {return task2.isChecked - task1.isChecked}));
+    setTasks(tasksUpdated.sort((task1, task2) => {return Number(task2.isChecked) - Number(task1.isChecked)}));
 
     // Atualiza o estado de tarefas concluídas
-    setTasksDone(tasksUpdated.filter(task => task.isChecked === false))
+    setTasksDone(tasksUpdated.filter((task) => task.isChecked === false))
 
 
   }
