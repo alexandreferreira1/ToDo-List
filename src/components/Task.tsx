@@ -1,7 +1,15 @@
 import { Circle, CheckCircle,Trash } from "@phosphor-icons/react";
 import styles from "./Task.module.css";
 
-export function Task(props) {
+interface TaskProps {
+  title: string,
+  isChecked: boolean,
+  onDeleteTask: (title: string) => void,
+  onMarkTaskAsDone: (title: string) => void,
+
+}
+
+export function Task(props:TaskProps) {
   function handleDeleteTask() {
     props.onDeleteTask(props.title);
   }
@@ -11,10 +19,10 @@ export function Task(props) {
   }
 
   return (
-    <div className={props.isChecked ? styles.task : styles.taskChecked}>
+    <div className={props.isChecked ? styles.taskChecked : styles.task}>
 
       {/*  */}
-      {props.isChecked && <button
+      {!props.isChecked && <button
         type="button"
         className={styles.button}
         onClick={handleMarkTaskAsDone}
@@ -22,7 +30,7 @@ export function Task(props) {
         <Circle size={18} weight="bold" />
       </button>}
      
-      {!props.isChecked && <button
+      {props.isChecked && <button
         type="button"
         className={styles.button}
         onClick={handleMarkTaskAsDone}

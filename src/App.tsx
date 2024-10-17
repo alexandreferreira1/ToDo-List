@@ -2,7 +2,7 @@ import { Header } from "./components/Header";
 import { Task } from "./components/Task";
 import { Quantity } from "./components/Quantity";
 import styles from "./App.module.css";
-import {FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { PlusCircle } from "@phosphor-icons/react";
 import { NoTask } from "./components/NoTask";
 
@@ -16,14 +16,13 @@ export function App() {
   // Estado que armazena as tarefas
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  // const [inputValue, setInputValue] = useState('')
-
+  // Estado que armazena as tarefas concluídas
   const [tasksDone, setTasksDone] = useState<Task[]>([])
 
   // Valida e insere um nova tarefa
   function handleNewTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    
+
     const form = event.target as HTMLFormElement
     const inputTaskName = form.elements.namedItem('taskName') as HTMLInputElement
 
@@ -34,8 +33,8 @@ export function App() {
     } else if (inputTaskName.value !== "") {
       const createNewTask = {
         title: inputTaskName.value,
-        isChecked: true,
-      }; 
+        isChecked: false,
+      };
 
       setTasks([...tasks, createNewTask]);
 
@@ -54,7 +53,14 @@ export function App() {
     );
 
     setTasks(newArrayWithoutThisTask);
+
+    const deleteTaskDone = newArrayWithoutThisTask.filter(
+      (task) => (task.isChecked)
+    );
+
+    setTasksDone(deleteTaskDone)
   }
+
 
   // Evento para marcar tarefa como concluída
   function markTaskAsDone(title: string) {
@@ -69,14 +75,11 @@ export function App() {
     });
 
     // Atualiza o estado das tarefas e já ordena pelo isChecked
-    setTasks(tasksUpdated.sort((task1, task2) => {return Number(task2.isChecked) - Number(task1.isChecked)}));
+    setTasks(tasksUpdated.sort((task1, task2) => { return Number(task1.isChecked) - Number(task2.isChecked) }));
 
     // Atualiza o estado de tarefas concluídas
-    setTasksDone(tasksUpdated.filter((task) => task.isChecked === false))
-
-
+    setTasksDone(tasksUpdated.filter((task) => task.isChecked === true))
   }
-
 
   return (
     <>
